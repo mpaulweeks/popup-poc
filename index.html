@@ -1,0 +1,65 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Popup Test - Parent</title>
+  <style type="text/css">
+body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+button {
+  margin: 5px;
+  font-size: 3em;
+  padding: 0.5em;
+  border: 1px solid black;
+  border-radius: 0.3em;
+}
+  </style>
+</head>
+<body>
+  <button id="submit">
+    spawn popup
+  </button>
+  <section id="output"></section>
+
+  <script type="text/javascript">
+const button = document.getElementById('submit');
+const output = document.getElementById('output');
+
+function checkForSubmit(newWindow){
+  button.disabled = true;
+  function checkLoop(){
+    try {
+      if (newWindow.location.search.includes('done')){
+        // success, exit popup
+        console.log('success');
+        console.log(newWindow.location);
+        output.innerHTML += `<p>closed at ${new Date().toLocaleString()}</p>`;
+
+        newWindow.close();
+        button.disabled = false;
+      }
+    } catch (e) {
+      button.disabled = false;
+      throw e;
+    }
+    if (!newWindow.closed) {
+      window.setTimeout(() => checkLoop(), 100);
+    }
+  }
+  checkLoop();
+}
+
+button.addEventListener('click', e => {
+  const newWindow = window.open('popup.html', null, 'height=600,width=450');
+  if (window.focus) {
+    newWindow.focus();
+  }
+  checkForSubmit(newWindow);
+});
+  </script>
+</body>
+</html>

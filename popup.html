@@ -1,0 +1,35 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Popup Test - Child</title>
+  <style type="text/css">
+body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+button {
+  margin: 5px;
+  font-size: 3em;
+  padding: 0.5em;
+  border: 1px solid black;
+  border-radius: 0.3em;
+}
+  </style>
+</head>
+<body>
+  <button id="submit">
+    close popup
+  </button>
+
+  <script type="text/javascript">
+const button = document.getElementById('submit');
+
+button.addEventListener('click', e => {
+  window.location.search = '?done=1';
+});
+  </script>
+</body>
+</html>
